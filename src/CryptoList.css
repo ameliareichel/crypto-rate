@@ -1,0 +1,36 @@
+.crypto-item {
+    font-size: 15px;
+    margin: 15px auto;
+    padding: 15px;
+    font-weight: 700;
+    border: 1px solid #000;
+    width: 30%;
+    transition: all 0.2s;
+}
+
+.crypto-item:hover {
+    background-color: #FF9900;
+}
+
+.item-value {
+    padding: 5px;
+    font-weight: 600;
+    color: green;
+}
+
+span {
+    display: inline-block;
+    margin: 0 4px;
+}
+
+.red {
+    color: red;
+}
+
+.green {
+    color: green;
+}
+
+.blue {
+    color: blue;
+}
