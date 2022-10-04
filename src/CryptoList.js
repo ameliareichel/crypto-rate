@@ -9,7 +9,7 @@ const CryptoList = (props) => {
 
         return (
             <p className="crypto-item" key={cryptoElementObj.currency}>Last rate:
-                <span className={`CryptoRate ${cryptoElementObj.cssClass}`}>{cryptoElementObj.last} {cryptoElementObj.htmlArrow}</span>
+                <span className={`${cryptoElementObj.cssClass}`}>{cryptoElementObj.last} {cryptoElementObj.htmlArrow}</span>
                 <span className="item-currency-name">{cryptoElementObj.currency}</span>
                 <span className="item-currency-symbol"> [{cryptoElementObj.symbol}]</span>
             </p>

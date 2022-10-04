@@ -9,13 +9,19 @@ class Crypto extends Component {
         super(props);
 
         this.state = {
-            cryptoList: []
+            cryptoList: [],
+            filterCryptoList: []
         };
-    }
+    };
 
     componentDidMount() {
         this.getData();
-    }
+        this.timerId = setInterval(() => this.getData(), 5000);
+    };
+
+    componentWillUnmount() {
+        clearInterval(this.timerId);
+    };
 
     getData = () => {
 
@@ -41,14 +47,23 @@ class Crypto extends Component {
                         };
 
                         if (lastCryptoObj !== undefined) {
-                            //code
+                            if (newCrypto.last > lastCryptoObj.last) {
+                                newCrypto.cssClass = 'green';
+                                newCrypto.htmlArrow = String.fromCharCode(8593);
+                            }
+                            else if (newCrypto.last < lastCryptoObj.last) {
+                                newCrypto.cssClass = 'red';
+                                newCrypto.htmlArrow = String.fromCharCode(8595);
+                            }
+                            else {
+                                newCrypto.cssClass = 'blue';
+                                newCrypto.htmlArrow = String.fromCharCode(8596);
+                            }
                         }
                         else {
                             newCrypto.cssClass = 'blue';
                             newCrypto.htmlArrow = String.fromCharCode(8596);
                         };
-
-                        console.log(newCrypto);
 
                         newList.push(newCrypto);
                     };
@@ -59,17 +74,31 @@ class Crypto extends Component {
             })
     };
 
+    cryptoFilter = () => {
+        this._inputFilter.value = this._inputFilter.value.trim();
+
+        this.setState((state) => {
+            let newFilteredList = state.cryptoList.filter((cryptoObj) => {
+                return(cryptoObj.currency.includes(this._inputFilter.value));
+            });
+
+            return ({
+                filterCryptoList: newFilteredList
+            });
+        });
+    };
+
     render() {
 
         return (
             <div className="app-body">
-                <input type="text" placeholder="Filter currency..." className="filter" />
+                <input type="text" ref={element => this._inputFilter = element} onChange={this.cryptoFilter} placeholder="Filter currency..." className="filter" />
                 <div className="crypto-list">
                     <CryptoList cryptoList={this.state.cryptoList} />
                 </div>
             </div>
         );
     };
-}
+};
 
 export default Crypto;
